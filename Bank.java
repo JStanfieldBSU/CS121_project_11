@@ -9,8 +9,8 @@ class Bank implements HasMenu{
   public Bank(){
     // uncomment the next two lines to refresh data
 
-    this.loadSampleCustomers();
-    this.saveCustomers();
+    // this.loadSampleCustomers();
+    // this.saveCustomers();
     this.loadCustomers();
     this.start();
     this.saveCustomers();

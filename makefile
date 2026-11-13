@@ -1,3 +1,12 @@
+Program: Bank.class
+	java Bank
+
+Bank.class: Bank.java Admin.class User.class
+	javac -g Bank.java
+
+Admin.class: Admin.java
+	javac -g Admin.java
+
 Customer.class: Customer.java User.class CheckingAccount.class SavingsAccount.class
 	javac -g Customer.java
 
