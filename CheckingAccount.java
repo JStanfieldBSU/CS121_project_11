@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.*;
 
-class CheckingAccount implements HasMenu{
+class CheckingAccount implements HasMenu, Serializable{
   double balance;
 
   CheckingAccount(){
@@ -47,7 +48,7 @@ class CheckingAccount implements HasMenu{
   } // end getBalance
 
   String getBalanceString(){
-    return String.format("$%.2f%n", balance);
+    return String.format("$%.2f", balance);
   } // end getBalanceString
 
   void setBalance(double balance){
@@ -60,18 +61,32 @@ class CheckingAccount implements HasMenu{
 
   private double getDouble(){
     Scanner userInterface = new Scanner(System.in);
-    return userInterface.nextDouble();
+    double output = 0.0;
+    
+    try{
+      output = userInterface.nextDouble();
+    } catch (InputMismatchException mme) {
+      output = 0;
+    }
+    return output;
   } // end getDouble
 
   void makeDeposit(){
     System.out.print("Making a deposit...\nHow much to deposit?\n");
-    this.balance += getDouble();
-    System.out.println("New balance: " + getBalanceString());
+    double depositAmount = getDouble();
+    this.balance += depositAmount;
+    System.out.println("New balance: " + getBalanceString() + '\n');
   } // end makeDeposit
 
   void makeWithdrawal(){
     System.out.print("Making a withdrawal...\nHow much to withdraw?\n");
-    this.balance -= getDouble();
-    System.out.println("New balance: " + getBalanceString());
+    double withdrawalAmount = getDouble();
+    if(withdrawalAmount < this.balance){
+      this.balance -= withdrawalAmount;
+      System.out.println("New balance: " + getBalanceString() + '\n');
+    }
+    else{
+      System.out.println("\nINSUFFICIENT FUNDS\n");
+    }
   } // end makeWithdrawal
-}
+} // end CheckingAccount
