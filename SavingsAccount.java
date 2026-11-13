@@ -1,21 +1,22 @@
 import java.util.*;
 
 class SavingsAccount extends CheckingAccount{
-  double interestRate;
+  double interestRate = 0.05;
 
   void main(){
     start();
   } // end main
 
   void calcInterest(){
-    // placeholder
+    double interestValue = this.balance * interestRate;
+    this.balance += interestValue;
   } // end calcInterest
 
-  void setInterestRate(){
-    // placeholder
+  void setInterestRate(double newInterest){
+    this.interestRate = newInterest;
   } // end setInterestRate
 
   double getInterestRate(){
-    return 0.0; // placeholder
+    return this.interestRate;
   } // end getInterestRate
 }
