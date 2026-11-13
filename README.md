@@ -70,7 +70,7 @@ class SavingsAccount extends CheckingAccount
 ```
 algorithm
 ```
-currently, nothing is different than in CheckingAccount
+calcInterest - take the balance and multiply it by the interest rate, store that in a double, then add that double to the balance.
 ```
 
 ## User
@@ -91,11 +91,7 @@ abstract class User implements HasMenu, Serializable
 ```
 algorithm
 ```
-login - prompt user for two inputs, username and PIN, then pass them to overloaded login
-
-login(user, pin) - return the value of the comparison of user and username as well as pass and PIN
-
-getters and setters
+login - prompt user for username and pin, then pass those to login(user, pass), which then compares them to the properties userName and PIN, which then returns true if they match.
 ```
 
 ## Customer
@@ -107,7 +103,7 @@ class Customer extends User
   ====================
     void main()
     Customer()
-    Customer(usernName, PIN)
+    Customer(userName, PIN)
     void start()
     string menu()
     void changePin()
@@ -116,19 +112,19 @@ class Customer extends User
 ```
 algorithm
 ```
-main - call start
+main - asks the user to login. if that check passes, it calls start.
 
-Constructor - instantiate the checking and saving accounts and set the user and pin to placeholders
+Customer - default constructor. creates the checking, savings, and fills user and pin with filler data foobar and 0000
 
-Constructor(user, pin) - instantiate the checking and saving accounts and set the user and pin to the provided values
+Customer(userName, PIN) - overloaded constructor. creates the checking, savings, and fills user and pin with provided data
 
-start - call login(). while keep going, show the menu, accept input to the menu. input 0, keepgoing false. input 1, call the start of checking. input 2, call the start of savings. input 3, call changePin.
+start - prints menu and handles the option selection
 
-menu - returns the text for the menu.
+menu - returns the menu text
 
-changePin - currently nonfunctional. will prompt user for new input of pin and change the pin to the new value.
+changePin - asks the user to verify their identity by logging in again, then asks the user to input their new pin and confirm that pin, then sets the customer's pin to the newPin
 
-getReport - non functional.
+getReport - returns username, checking balance, and savings balance
 ```
 
 ## Admin
@@ -141,6 +137,18 @@ class Admin extends User
     void start()
     string getReport()
   ====================
+```
+algorithm
+```
+Admin - sets username and pin to default parameters
+
+menu - returns the menu text
+
+start - empty
+
+getReport - returns username and pin
+
+all actual admin tasks are done in Bank
 ```
 
 ## Bank
@@ -164,6 +172,29 @@ class Bank implements HasMenu
     void startAdmin()
   ====================
 ```
+algorithm
+```
+Bank - (commented out) initialize the sample by calling loadSampleCustomers, then save the sample to ensure the file exists. Load the file by calling loadCustomers, then call start, once start exits, call saveCustomers
 
+main - empty
 
+loadSampleCustomers - create three sample customers and set the balance in one of them
 
+saveCustomers - try and create a file with a fileoutputstream named customers.dat, then then create an outputStream that pushes to that fileoutputstream. write all the customers to the output stream, which writes them to the file, close the output and close the file. Catch an error.
+
+loadCustomers - try and open the file customers.dat, and pull an input stream from it. feed that imput to customers, then close the input stream and file
+
+reportAllUsers - go through each customer in customers and call their report function
+
+addUser - create a temporary existingUser string, accept input relating to a new account from the user involving user and pass, then go through each existing customer and compare the username. If a user is already made with that name, inform the user and exit the loop. Else, create a new user in the arraylist with the provided values.
+
+applyInterest - for each customer in the arraylist, call the savings account calcInterest function
+
+loginAsCustomer - create a temporary customer and set it to null, then prompt the user for login details, for each customer in the arraylist, check if they could login with the given parameters, if they can, start and set the sentinel to size of arrayList + 1. Else, inform the user that there was no account with those details.
+
+menu - returns the menu text for bank
+
+start - prints the menu text and accepts and handles the input from the user regarding which option to select
+
+startAdmin - calls the admin menu text and handles all of admin tasks and calling the methods relating to them
+```
