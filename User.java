@@ -1,5 +1,5 @@
 import java.util.*;
-import java.io.Serializable;
+import java.io.*;
 
 abstract class User implements HasMenu, Serializable{
   String userName;
@@ -21,19 +21,19 @@ abstract class User implements HasMenu, Serializable{
 
   void setUserName(String userName){
     this.userName = userName;
-  }
+  } // end setUserName
 
   String getUserName(){
     return this.userName;
-  }
+  } // end getUserName
 
   void setPIN(String PIN){
     this.PIN = PIN;
-  }
+  } // end setPIN
 
   String getPIN(){
     return this.PIN;
-  }
+  } // end getPIN
 
   abstract String getReport();
-}
+} // end User
