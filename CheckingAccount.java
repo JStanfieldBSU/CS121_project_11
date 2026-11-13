@@ -65,9 +65,10 @@ class CheckingAccount implements HasMenu, Serializable{
     
     try{
       output = userInterface.nextDouble();
-    } catch (InputMismatchException mme) {
+    } // end try 
+    catch (InputMismatchException mme) {
       output = 0;
-    }
+    } // end catch
     return output;
   } // end getDouble
 
@@ -84,9 +85,9 @@ class CheckingAccount implements HasMenu, Serializable{
     if(withdrawalAmount < this.balance){
       this.balance -= withdrawalAmount;
       System.out.println("New balance: " + getBalanceString() + '\n');
-    }
+    } // end if
     else{
       System.out.println("\nINSUFFICIENT FUNDS\n");
-    }
+    } // end else
   } // end makeWithdrawal
 } // end CheckingAccount
